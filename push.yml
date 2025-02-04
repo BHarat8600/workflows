@@ -1,0 +1,17 @@
+name: Auto-Push Excel
+on:
+  schedule:
+    - cron: "*/30 * * * *"  # Runs every 30 minutes
+jobs:
+  push_excel:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Commit and push changes
+        run: |
+          git config --global user.email "bharatade7@gmail.com"
+          git config --global user.name "GitHub Actions"
+          git add *.xlsx
+          git commit -m "Auto-update Excel file" || exit 0
+          git push origin main
